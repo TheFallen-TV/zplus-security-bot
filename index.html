@@ -3,13 +3,13 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Z+ Security Bot Bot</title>
+  <title>Z+ Security Bot</title>
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
   <style>
     * { margin: 0; padding: 0; box-sizing: border-box; }
     body {
       font-family: 'Poppins', sans-serif;
-      background: #0f172a;
+      background: radial-gradient(circle at top, #0f172a, #020617);
       color: #fff;
     }
 
@@ -18,73 +18,79 @@
       justify-content: space-between;
       align-items: center;
       padding: 20px 40px;
-      background: #020617;
+      background: rgba(2,6,23,0.7);
+      backdrop-filter: blur(10px);
+      box-shadow: 0 0 20px rgba(56,189,248,0.2);
     }
 
-    header h1 { color: #38bdf8; }
+    header h1 { color: #38bdf8; text-shadow: 0 0 10px #38bdf8; }
 
-    nav a {
-      margin-left: 20px;
-      text-decoration: none;
-      color: #cbd5f5;
-      transition: 0.3s;
+    nav a { margin-left: 20px; text-decoration: none; color: #cbd5f5; }
+    nav a:hover { color: #38bdf8; text-shadow: 0 0 8px #38bdf8; }
+
+    .hero { text-align: center; padding: 80px 20px; }
+
+    .hero img { width: 120px; margin-bottom: 20px; animation: glowPulse 2s infinite alternate; }
+
+    @keyframes glowPulse {
+      from { filter: drop-shadow(0 0 10px #38bdf8); }
+      to { filter: drop-shadow(0 0 25px #38bdf8); }
     }
 
-    nav a:hover { color: #38bdf8; }
-
-    .hero {
-      text-align: center;
-      padding: 80px 20px;
-    }
-
-    .hero h2 {
-      font-size: 3rem;
-      margin-bottom: 20px;
-    }
-
-    .hero p {
-      font-size: 1.2rem;
-      color: #94a3b8;
-      margin-bottom: 30px;
-    }
+    .hero h2 { font-size: 3rem; margin-bottom: 20px; text-shadow: 0 0 15px rgba(56,189,248,0.6); }
+    .hero p { color: #94a3b8; margin-bottom: 30px; }
 
     .btn {
-      padding: 12px 25px;
-      background: #38bdf8;
-      color: #000;
-      border-radius: 8px;
-      text-decoration: none;
-      font-weight: 600;
-      transition: 0.3s;
+      padding: 12px 25px; background: #38bdf8; color: #000;
+      border-radius: 8px; text-decoration: none; font-weight: 600;
+      box-shadow: 0 0 10px #38bdf8; transition: 0.3s;
     }
 
-    .btn:hover { background: #0ea5e9; }
+    .btn:hover { background: #0ea5e9; box-shadow: 0 0 25px #38bdf8; transform: translateY(-2px); }
 
     .features {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      grid-template-columns: repeat(3, 1fr);
       gap: 20px;
       padding: 50px;
     }
 
-    .card {
-      background: #020617;
-      padding: 20px;
-      border-radius: 12px;
-      box-shadow: 0 0 20px rgba(0,0,0,0.3);
+    @media (max-width: 900px) {
+      .features {
+        grid-template-columns: repeat(2, 1fr);
+      }
     }
 
-    .card h3 {
-      margin-bottom: 10px;
-      color: #38bdf8;
+    @media (max-width: 600px) {
+      .features {
+        grid-template-columns: 1fr;
+      }
     }
+
+    .card {
+      background: rgba(2,6,23,0.8); padding: 20px; border-radius: 12px;
+      border: 1px solid rgba(56,189,248,0.2); transition: 0.3s;
+    }
+
+    .card:hover { transform: translateY(-5px); box-shadow: 0 0 25px rgba(56,189,248,0.4); }
+
+    .card h3 { color: #38bdf8; margin-bottom: 10px; text-shadow: 0 0 8px #38bdf8; }
+
+    .stats {
+      display: flex; justify-content: space-around; padding: 40px;
+      background: rgba(2,6,23,0.8);
+      box-shadow: inset 0 0 20px rgba(56,189,248,0.1);
+    }
+
+    .stat h2 { color: #38bdf8; text-shadow: 0 0 10px #38bdf8; font-size: 2rem; }
+
+    section { text-align: center; padding: 60px 20px; }
 
     footer {
-      text-align: center;
-      padding: 20px;
-      background: #020617;
-      margin-top: 40px;
+      text-align: center; padding: 20px;
+      background: rgba(2,6,23,0.8);
       color: #64748b;
+      box-shadow: 0 0 20px rgba(56,189,248,0.1);
     }
   </style>
 </head>
@@ -95,40 +101,100 @@
   <nav>
     <a href="#">Home</a>
     <a href="#features">Features</a>
-    <a href="#">Docs</a>
-    <a href="#">Support</a>
   </nav>
 </header>
 
 <section class="hero">
-  <img src="logo.png" alt="Z+ Security Bot Logo" style="width:120px;margin-bottom:20px;filter: drop-shadow(0 0 15px #3b82f6);">
+  <img src="https://i.ibb.co/m5SbsxBZ/logo.png" alt="logo">
   <h2>Protect Your Discord Server</h2>
-  <p>Advanced moderation, anti-raid, and security tools in one powerful bot.</p>
-  <a href="#" class="btn">Invite Bot</a>
+  <p>Advanced anti-raid, moderation and security system.</p>
+  <a href="https://discord.com/oauth2/authorize?client_id=1484870321994596383&permissions=8&integration_type=0&scope=bot" class="btn" target="_blank">Invite Bot</a>
 </section>
 
 <section class="features" id="features">
-  <div class="card">
-    <h3>Anti-Raid</h3>
-    <p>Detect and stop raid attacks instantly with smart automation.</p>
-  </div>
-  <div class="card">
-    <h3>Auto Moderation</h3>
-    <p>Filter spam, toxic content, and harmful links in real-time.</p>
-  </div>
-  <div class="card">
-    <h3>Logging System</h3>
-    <p>Track all server activities with detailed logs and alerts.</p>
-  </div>
-  <div class="card">
-    <h3>Custom Rules</h3>
-    <p>Create flexible rules tailored to your server's needs.</p>
-  </div>
+  <div class="card"><h3>Anti-Raid</h3><p>Stops raids instantly.</p></div>
+  <div class="card"><h3>Auto Moderation</h3><p>Filters spam & toxicity.</p></div>
+  <div class="card"><h3>Anti-Nuke</h3><p>Prevents server destruction.</p></div>
+  <div class="card"><h3>Join Firewall</h3><p>Blocks fake users.</p></div>
+  <div class="card"><h3>Role Protection</h3><p>Prevents unauthorized role changes and privilege abuse.</p></div>
+  <div class="card"><h3>Link Shield</h3><p>Blocks malicious and phishing links automatically.</p></div>
 </section>
 
+<section class="stats" id="stats">
+  <div class="stat"><h2 data-target="120000">0</h2><p>Servers</p></div>
+  <div class="stat"><h2 data-target="10000000">0</h2><p>Threats Blocked</p></div>
+  <div class="stat"><h2 data-target="99.9">0</h2><p>Uptime %</p></div>
+</section>
+
+<section>
+  <h2>Powerful Dashboard</h2>
+  <p>Manage everything easily from a web panel.</p>
+</section>
+
+<section>
+  <h2>Smart Verification</h2>
+  <p>Captcha & advanced verification system.</p>
+</section>
+
+<section>
+  <h2>Panic Mode</h2>
+  <p>Lock down server instantly during attacks.</p>
+</section>
+
+<section>
+  <h2>Advanced Logging</h2>
+  <p>Track all activities in real-time.</p>
+</section>
+
+
+
 <footer>
-  <p>© 2026 Z+ Security Bot Bot | Built for Discord Communities</p>
+  <p>© 2026 Z+ Security Bot</p>
 </footer>
+
+<script>
+  const counters = document.querySelectorAll('.stat h2');
+  let started = false;
+
+  function formatNumber(num) {
+    if (num >= 1000000) return (num/1000000).toFixed(0) + 'M+';
+    if (num >= 1000) return (num/1000).toFixed(0) + 'K+';
+    return num;
+  }
+
+  function runCounter() {
+    counters.forEach(counter => {
+      const target = parseFloat(counter.getAttribute('data-target'));
+      let count = 0;
+      const speed = target / 100;
+
+      const update = () => {
+        if (count < target) {
+          count += speed;
+          if (target === 99.9) {
+            counter.innerText = count.toFixed(1);
+          } else {
+            counter.innerText = formatNumber(count);
+          }
+          requestAnimationFrame(update);
+        } else {
+          counter.innerText = target === 99.9 ? '99.9' : formatNumber(target);
+        }
+      };
+
+      update();
+    });
+  }
+
+  const observer = new IntersectionObserver(entries => {
+    if (entries[0].isIntersecting && !started) {
+      runCounter();
+      started = true;
+    }
+  });
+
+  observer.observe(document.querySelector('#stats'));
+</script>
 
 </body>
 </html>
