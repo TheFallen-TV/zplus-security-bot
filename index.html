@@ -144,9 +144,9 @@
 </section>
 
 <section class="stats" id="stats">
-  <div class="stat"><h2 data-target="120000">0</h2><p>Servers <span class="live">LIVE</span></p></div>
+  <div class="stat"><h2 data-target="1000">0</h2><p>Servers <span class="live">LIVE</span></p></div>
   <div class="stat"><h2 data-target="10000000">0</h2><p>Threats Blocked <span class="live">LIVE</span></p></div>
-  <div class="stat"><h2 data-target="99.9">0</h2><p>Uptime % <span class="live">LIVE</span></p></div>
+  <div class="stat"><h2 data-target="90">0</h2><p>Uptime % <span class="live">LIVE</span></p></div>
 </section>
 
 <section>
@@ -188,25 +188,23 @@
   function runCounter() {
     counters.forEach(counter => {
       const target = parseFloat(counter.getAttribute('data-target'));
-      let count = target * (0.85 + Math.random() * 0.1);
+      let count = 0;
 
       function update() {
-        // simulate real-time growth
-        let baseIncrement = target * 0.0002;
-        let randomSpike = Math.random() < 0.02 ? target * 0.002 : 0; // occasional spike
-        let increment = baseIncrement + randomSpike;
+        // smooth slow increment
+        let increment = target * 0.002;
 
-        count += increment;
-
-        // slight drop sometimes to feel organic
-        if (Math.random() < 0.01) {
-          count -= increment * 2;
+        if (count < target) {
+          count += increment;
+        } else {
+          count = target; // lock cleanly (no glitch)
         }
 
-        if (target === 99.9) {
-          counter.innerText = Math.min(count, 99.9).toFixed(1);
+        // display
+        if (target === 90) {
+          counter.innerText = Math.min(count, 90).toFixed(1);
         } else {
-          counter.innerText = formatNumber(count);
+          counter.innerText = formatNumber(Math.min(count, target));
         }
 
         requestAnimationFrame(update);
