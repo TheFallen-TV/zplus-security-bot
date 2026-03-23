@@ -76,6 +76,13 @@
 
     .card h3 { color: #38bdf8; margin-bottom: 10px; text-shadow: 0 0 8px #38bdf8; }
 
+    .icon {
+      font-size: 2rem;
+      margin-bottom: 10px;
+      color: #38bdf8;
+      text-shadow: 0 0 10px #38bdf8;
+    }
+
     .stats {
       display: flex; justify-content: space-around; padding: 40px;
       background: rgba(2,6,23,0.8);
@@ -83,6 +90,20 @@
     }
 
     .stat h2 { color: #38bdf8; text-shadow: 0 0 10px #38bdf8; font-size: 2rem; }
+
+    .live {
+      display: inline-block;
+      margin-left: 8px;
+      font-size: 0.8rem;
+      color: #22c55e;
+      text-shadow: 0 0 8px #22c55e;
+      animation: blink 1s infinite;
+    }
+
+    @keyframes blink {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.3; }
+    }
 
     section { text-align: center; padding: 60px 20px; }
 
@@ -93,6 +114,7 @@
       box-shadow: 0 0 20px rgba(56,189,248,0.1);
     }
   </style>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 </head>
 <body>
 
@@ -101,6 +123,7 @@
   <nav>
     <a href="#">Home</a>
     <a href="#features">Features</a>
+    <a href="dashboard.html" class="btn" style="margin-left:20px;">Dashboard</a>
   </nav>
 </header>
 
@@ -112,18 +135,18 @@
 </section>
 
 <section class="features" id="features">
-  <div class="card"><h3>Anti-Raid</h3><p>Stops raids instantly.</p></div>
-  <div class="card"><h3>Auto Moderation</h3><p>Filters spam & toxicity.</p></div>
-  <div class="card"><h3>Anti-Nuke</h3><p>Prevents server destruction.</p></div>
-  <div class="card"><h3>Join Firewall</h3><p>Blocks fake users.</p></div>
-  <div class="card"><h3>Role Protection</h3><p>Prevents unauthorized role changes and privilege abuse.</p></div>
-  <div class="card"><h3>Link Shield</h3><p>Blocks malicious and phishing links automatically.</p></div>
+  <div class="card"><div class="icon"><i class="fas fa-shield-halved"></i></div><h3>Anti-Raid</h3><p>Stops raids instantly.</p></div>
+  <div class="card"><div class="icon"><i class="fas fa-robot"></i></div><h3>Auto Moderation</h3><p>Filters spam & toxicity.</p></div>
+  <div class="card"><div class="icon"><i class="fas fa-bomb"></i></div><h3>Anti-Nuke</h3><p>Prevents server destruction.</p></div>
+  <div class="card"><div class="icon"><i class="fas fa-user-shield"></i></div><h3>Join Firewall</h3><p>Blocks fake users.</p></div>
+  <div class="card"><div class="icon"><i class="fas fa-user-lock"></i></div><h3>Role Protection</h3><p>Prevents unauthorized role changes and privilege abuse.</p></div>
+  <div class="card"><div class="icon"><i class="fas fa-link-slash"></i></div><h3>Link Shield</h3><p>Blocks malicious and phishing links automatically.</p></div>
 </section>
 
 <section class="stats" id="stats">
-  <div class="stat"><h2 data-target="120000">0</h2><p>Servers</p></div>
-  <div class="stat"><h2 data-target="10000000">0</h2><p>Threats Blocked</p></div>
-  <div class="stat"><h2 data-target="99.9">0</h2><p>Uptime %</p></div>
+  <div class="stat"><h2 data-target="120000">0</h2><p>Servers <span class="live">LIVE</span></p></div>
+  <div class="stat"><h2 data-target="10000000">0</h2><p>Threats Blocked <span class="live">LIVE</span></p></div>
+  <div class="stat"><h2 data-target="99.9">0</h2><p>Uptime % <span class="live">LIVE</span></p></div>
 </section>
 
 <section>
@@ -157,30 +180,37 @@
   let started = false;
 
   function formatNumber(num) {
-    if (num >= 1000000) return (num/1000000).toFixed(0) + 'M+';
-    if (num >= 1000) return (num/1000).toFixed(0) + 'K+';
-    return num;
+    if (num >= 1000000) return (num/1000000).toFixed(1) + 'M+';
+    if (num >= 1000) return (num/1000).toFixed(1) + 'K+';
+    return num.toFixed(0);
   }
 
   function runCounter() {
     counters.forEach(counter => {
       const target = parseFloat(counter.getAttribute('data-target'));
-      let count = 0;
-      const speed = target / 100;
+      let count = target * (0.85 + Math.random() * 0.1);
 
-      const update = () => {
-        if (count < target) {
-          count += speed;
-          if (target === 99.9) {
-            counter.innerText = count.toFixed(1);
-          } else {
-            counter.innerText = formatNumber(count);
-          }
-          requestAnimationFrame(update);
-        } else {
-          counter.innerText = target === 99.9 ? '99.9' : formatNumber(target);
+      function update() {
+        // simulate real-time growth
+        let baseIncrement = target * 0.0002;
+        let randomSpike = Math.random() < 0.02 ? target * 0.002 : 0; // occasional spike
+        let increment = baseIncrement + randomSpike;
+
+        count += increment;
+
+        // slight drop sometimes to feel organic
+        if (Math.random() < 0.01) {
+          count -= increment * 2;
         }
-      };
+
+        if (target === 99.9) {
+          counter.innerText = Math.min(count, 99.9).toFixed(1);
+        } else {
+          counter.innerText = formatNumber(count);
+        }
+
+        requestAnimationFrame(update);
+      }
 
       update();
     });
@@ -198,3 +228,5 @@
 
 </body>
 </html>
+
+
